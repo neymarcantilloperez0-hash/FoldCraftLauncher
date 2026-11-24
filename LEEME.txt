@@ -1,0 +1,25 @@
+SmLauncher fase 1 - panel de cliente dentro del juego (base: Fold Craft Launcher)
+
+Contenido (rutas exactas del repo, sobre la raiz de tu fork FoldCraftLauncher):
+  FCL/src/main/java/com/tungsten/fcl/control/SmClientOverlay.java  (NUEVO)
+  FCL/src/main/java/com/tungsten/fcl/control/GameMenu.java         (REEMPLAZA el original, ya con los 3 retoques)
+  FCL/src/fordebug/res/values/sm_branding.xml                      (NUEVO, nombre de la app = SmLauncher)
+
+Como aplicarlo con Termux:
+  pkg install git unzip
+  git clone https://github.com/neymarcantilloperez0-hash/FoldCraftLauncher
+  cd FoldCraftLauncher
+  unzip -o /sdcard/Download/SmLauncher-fase1.zip
+  git add -A
+  git commit -m "SmLauncher fase 1: panel de cliente"
+  git push
+(el push pide tu usuario y un token de GitHub como contrasena)
+
+Como aplicarlo desde github.com:
+  - En la carpeta FCL/src/main/java/com/tungsten/fcl/control/ : Add file > Upload files con
+    GameMenu.java y SmClientOverlay.java.
+  - Add file > Create new file, nombre FCL/src/fordebug/res/values/sm_branding.xml y pega su contenido.
+
+Compilar: pestana Actions > Build. Al terminar, en Artifacts baja app-arm64.
+Nota: GameMenu.java reemplaza el archivo completo; si luego sincronizas con FCL oficial,
+vuelve a aplicar los 3 retoques (campo smClientOverlay, creacion en setup, metodos sm*).
