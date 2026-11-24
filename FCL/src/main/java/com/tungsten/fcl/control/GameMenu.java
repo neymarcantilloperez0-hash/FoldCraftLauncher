@@ -138,6 +138,7 @@ public class GameMenu implements MenuCallback, FCLBridgeCallback {
     private ViewManager viewManager;
     private Gyroscope gyroscope;
     private GameOption gameOption;
+    private SmClientOverlay smClientOverlay;
 
     private LeftMenuAdapter leftMenuAdapter;
     private RightMenuAdapter rightMenuAdapter;
@@ -948,6 +949,10 @@ public class GameMenu implements MenuCallback, FCLBridgeCallback {
             }
             return false;
         });
+        // SmLauncher: botón flotante "SM" y panel de cliente (solo dentro del juego, no en el editor de controles)
+        if (!isSimulated()) {
+            smClientOverlay = new SmClientOverlay(this);
+        }
         if (menuSetting.isHideMenuView()) {
             Toast.makeText(activity, R.string.tip_hide_menu_view, Toast.LENGTH_LONG).show();
         }
@@ -1713,5 +1718,27 @@ public class GameMenu implements MenuCallback, FCLBridgeCallback {
     @Nullable
     public TouchController getTouchController() {
         return touchController;
+    }
+
+    /* ===== SmLauncher: puente para el panel de cliente (SmClientOverlay) ===== */
+
+    public void smToggleFps(boolean checked) {
+        toggleFps(checked);
+    }
+
+    public void smToggleMemory(boolean checked) {
+        toggleMemory(checked);
+    }
+
+    public void smToggleGyroscope(boolean checked) {
+        menuSetting.setEnableGyroscope(checked);
+        if (gyroscope == null) {
+            return;
+        }
+        if (checked) {
+            gyroscope.enableSensor();
+        } else {
+            gyroscope.disableSensor();
+        }
     }
 }
